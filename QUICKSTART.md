@@ -1,11 +1,5 @@
 # Quick Start Guide
 
-## ✅ Framework Successfully Initialized!
-
-Your **Playwright + Cucumber + TypeScript** automation framework is ready to use!
-
----
-
 ## What Was Built
 
 ### Core Framework
@@ -20,39 +14,6 @@ Your **Playwright + Cucumber + TypeScript** automation framework is ready to use
 - ✅ **Logging** - Color-coded console output for debugging
 - ✅ **Error Handling** - Try-catch with meaningful messages
 - ✅ **Reporting** - HTML + JSON reports with screenshots
-
----
-
-## File Structure
-
-```
-Amazon-EDS/
-├── features/
-│   ├── login.feature                    # Login scenario
-│   ├── product-search.feature           # Product search scenario
-│   └── support/steps.ts                 # Cucumber step definitions
-├── src/
-│   ├── pages/
-│   │   ├── BasePage.ts                 # Shared methods
-│   │   ├── LoginPage.ts                # Login interactions
-│   │   ├── SearchPage.ts               # Search functionality
-│   │   └── ProductPage.ts              # Product details & price finding
-│   ├── fixtures/
-│   │   ├── users.ts                    # Mock user credentials
-│   │   └── products.ts                 # Product test data
-│   ├── config/testConfig.ts            # Configuration management
-│   ├── hooks/hooks.ts                  # Before/After hooks
-│   └── utils/
-│       ├── dynamicElementHelper.ts     # Price extraction, dynamic elements
-│       └── logger.ts                   # Logging utilities
-├── playwright.config.ts                # Playwright configuration
-├── cucumber.js                         # Cucumber configuration
-├── tsconfig.json                       # TypeScript configuration
-├── package.json                        # Dependencies
-└── .env                                # Environment variables
-```
-
----
 
 ## Running Tests
 
@@ -109,18 +70,30 @@ npm run test:report
 **File**: `features/product-search.feature`
 1. Navigate to Amazon
 2. Search for "Mobile"
-3. Find lowest and highest price products
-4. Click lowest price product, read details
-5. Click highest price product, read details
+3. Find highest price products
+4. Click highest price product, read details
 
 **Steps**:
 - `Given I navigate to amazon`
 - `When I search for "Mobile" in the search box`
 - `Then I should see search results with multiple products`
-- `When I find the lowest and highest price products`
-- `Then I click on the lowest price product`
-- `Then I read and print "About this item" details in new tab`
+- `When I find the highest price products`
 - `Then I click on the highest price product`
+- `Then I read and print "About this item" details in new tab`
+
+### 3. Product Search Scenario
+**File**: `features/product-search.feature`
+1. Navigate to Amazon
+2. Search for "Mobile"
+3. Find lowest price products
+4. Click lowest price product, read details
+
+**Steps**:
+- `Given I navigate to amazon`
+- `When I search for "Mobile" in the search box`
+- `Then I should see search results with multiple products`
+- `When I find the lowest price products`
+- `Then I click on the lowest price product`
 - `Then I read and print "About this item" details in new tab`
 
 ---
@@ -157,19 +130,14 @@ const lowest = await productPage.getLowestPriceProduct();
 const highest = await productPage.getHighestPriceProduct();
 ```
 
-### 3. Mock Credentials (No Real Account Needed)
-```env
-MOCK_EMAIL=testuser@mock.com
-MOCK_PASSWORD=MockPass123!
-```
 
-### 4. Parallel Execution
+### 3. Parallel Execution
 - 4 workers by default
 - Each test in isolated browser context
 - No shared state between tests
 - Configure in `.env` (PARALLEL_WORKERS)
 
-### 5. Cucumber BDD
+### 4. Cucumber BDD
 Human-readable feature files with Gherkin syntax:
 
 ```gherkin
@@ -223,85 +191,6 @@ static readonly timeouts = {
 };
 ```
 
----
-
-## Environment Variables
-
-| Variable | Default | Purpose |
-|----------|---------|---------|
-| `BASE_URL` | `https://www.amazon.in/` | Target website |
-| `MOCK_EMAIL` | `testuser@mock.com` | Login email |
-| `MOCK_PASSWORD` | `MockPass123!` | Login password |
-| `PRODUCT_SEARCH_TERM` | `Mobile` | What to search |
-| `PARALLEL_WORKERS` | `4` | Number of workers |
-| `HEADED` | `false` | Visible browser (true/false) |
-| `SLOW_MO` | `0` | Delay between actions (ms) |
-| `CI` | `false` | CI environment flag |
-
----
-
-## Troubleshooting
-
-### 1. Tests Keep Timing Out
-**Issue**: Tests are taking longer than expected
-**Solution**: 
-- Set `HEADED=true` to see what's happening
-- Reduce `PARALLEL_WORKERS` in `.env`
-- Increase timeouts in `src/config/testConfig.ts`
-
-### 2. Amazon Blocks Tests
-**Issue**: "Access Denied" or similar errors
-**Solution**:
-- Amazon may block automated access
-- Add delays: Set `SLOW_MO=2000` in `.env`
-- Use VPN or proxy if needed
-- Try with mocked selectors locally first
-
-### 3. "About this item" Section Not Found
-**Issue**: Product details not extracted
-**Solution**:
-- Amazon UI may have changed
-- Update selectors in `ProductPage.ts`
-- Check browser console in headed mode
-
-### 4. New Tab Not Opening
-**Issue**: Product details page opens in same tab
-**Solution**:
-- Verify product link has `target="_blank"`
-- Update selector logic in `ProductPage.clickProductAndNavigateToDetails()`
-- Use fallback navigation strategy
-
-### 5. Login Not Working
-**Issue**: Login steps fail
-**Solution**:
-- Amazon may have changed selectors
-- Update selectors in `TestConfig.selectors`
-- Try with real credentials (update .env)
-- Check if 2FA is enabled
-
----
-
-## Best Practices
-
-✅ **Always use Page Objects** - Keep locators centralized
-✅ **Use DynamicElementHelper** - For price extraction and list operations
-✅ **Add Logging** - Use Logger.info/success/error for debugging
-✅ **Isolate Tests** - Each test should be independent
-✅ **Handle Errors** - Try-catch blocks with meaningful messages
-✅ **Update .env** - Don't hardcode values
-✅ **Wait for Elements** - Use Playwright's auto-wait, no manual sleeps
-
----
-
-## Next Steps
-
-1. **Run a test**: `npm test`
-2. **View results**: Check `test-results/cucumber-report.html`
-3. **Add more tests**: Create new `.feature` files
-4. **Extend pages**: Add methods to `ProductPage`, `LoginPage`, etc.
-5. **Integrate with CI/CD**: Add to GitHub Actions, Jenkins, etc.
-
----
 
 ## Support
 
@@ -312,15 +201,3 @@ For issues or questions:
 4. Review browser DevTools (when headed)
 5. Update locators if Amazon UI changed
 
----
-
-## Performance Tips
-
-- **Speed up tests**: Reduce `PARALLEL_WORKERS` if flaky, increase if plenty of resources
-- **Faster feedback**: Run single scenario: `npx cucumber-js features/login.feature`
-- **Debugging**: `npm run test:headed` to see browser
-- **Screenshots**: Automatically captured on failure
-
----
-
-**Framework is ready! Start testing with: `npm test`**

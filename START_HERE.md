@@ -133,8 +133,8 @@ Scenario: User logs in successfully with mock credentials
 **What Happens**:
 1. Browser opens, navigates to Amazon
 2. Clicks "Sign In" link
-3. Enters email: `testuser@mock.com`
-4. Enters password: `MockPass123!`
+3. Enters email
+4. Enters password
 5. Clicks Sign In button
 6. Verifies account button appears (login successful)
 
@@ -228,31 +228,7 @@ HEADED=false
 
 ---
 
-## 📋 Running Tests
 
-### Command Reference
-
-```bash
-# Run all tests (parallel execution)
-npm test
-
-# Run in visible browser (headed mode)
-npm run test:headed
-
-# Dry run (verify feature parsing)
-npm test -- --dry-run
-
-# Run specific feature
-npx cucumber-js features/login.feature
-
-# View HTML report
-npm run test:report
-
-# TypeScript compilation check
-npm run build
-```
-
----
 
 ## 🎓 OOP Concepts Demonstrated
 
