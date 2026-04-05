@@ -10,7 +10,6 @@ A comprehensive test automation framework built with **Playwright**, **Cucumber*
 ✅ **BDD with Cucumber** - Human-readable feature files
 ✅ **Environment-Based Configuration** - Flexible test data management
 ✅ **Comprehensive Reporting** - HTML + JSON reports with screenshots on failure
-✅ **Mock Credentials** - No real account needed
 
 ## Project Structure
 
@@ -53,7 +52,7 @@ amazon-automation-framework/
 
 1. **Clone or download the project**
    ```bash
-   cd Amazon-EDS
+   cd AmazonAutomationFramework-EDS
    ```
 
 2. **Install dependencies**
@@ -76,8 +75,8 @@ amazon-automation-framework/
 2. **Update .env file** (optional)
    ```env
    BASE_URL=https://www.amazon.in/
-   MOCK_EMAIL=testuser@mock.com
-   MOCK_PASSWORD=MockPass123!
+   MOCK_EMAIL=nikhilsharma.sharma48@gmail.com
+   MOCK_PASSWORD=NikAma@98
    PRODUCT_SEARCH_TERM=Mobile
    PARALLEL_WORKERS=4
    HEADED=false
